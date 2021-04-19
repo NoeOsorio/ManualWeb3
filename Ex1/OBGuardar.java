@@ -20,18 +20,15 @@ public class OBGuardar {
              rs.updateString(5, comments);
              rs.insertRow();
              rs.moveToCurrentRow();
-             result = "Everything great.";
 
              rs.close();
              stmt.close();
              conn.close();
          }
         catch (ClassNotFoundException e) {
-            result = e.getMessage();
             e.printStackTrace();
         }
         catch (SQLException e) {
-            result = e.getMessage();
             e.printStackTrace();
          }
   }
