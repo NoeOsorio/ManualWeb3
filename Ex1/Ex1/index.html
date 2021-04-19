@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>Opinion</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <h1>Por favor envíenos su opinión acerca de este sitio web</h1>
+        <form action="http://localhost:8080/ex1/Opinion" method="POST">
+            <label for="name">Nombre:</label>
+            <input type="text" name="name"><br>
+            <label for="lastname">Apellidos:</label>
+            <input type="text" name="lastname"><br>
+            Opinión que le ha merecido este sitio web<br>
+            <input type="radio" id="buena" name="rating" value="buena">
+            <label for="buena">Buena</label><br>
+            <input type="radio" id="regular" name="rating" value="regular">
+            <label for="regular">Regular</label><br>
+            <input type="radio" id="mala" name="rating" value="mala">
+            <label for="mala">Mala</label><br>
+            <label for="comments">Comentarios</label><br>
+            <textarea name="comments"></textarea><br>
+            <button type="submit">Enviar</button>
+            <button type="reset">Limpiar</button>
+        </form>
+    </body>
+</html>
