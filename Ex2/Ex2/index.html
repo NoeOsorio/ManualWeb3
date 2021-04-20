@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grupos</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <h1 align="center">Escoja el grupo de practicas cuya lista desea ver</h1>
+    <form action="http://localhost:8080/ex2/Grupos" method="POST">
+      <div style="display: flex; justify-content: center; gap: 3em">
+        <p>
+          <input id="g1" type="radio" name="group" value="1" />
+
+          <label for="g1">Grupo 1</label>
+        </p>
+        <p>
+          <input id="g2" type="radio" name="group" value="2" />
+          <label for="g2">Grupo 2</label>
+        </p>
+        <p>
+          <input id="g3" type="radio" name="group" value="3" />
+          <label for="g3">Grupo 3</label>
+        </p>
+      </div>
+      <div align="center">
+        <button type="submit">Enviar</button>
+        <button type="reset">Limpiar</button>
+      </div>
+    </form>
+  </body>
+</html>
