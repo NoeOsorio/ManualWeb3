@@ -6,7 +6,7 @@ import javax.servlet.http.*;
 
 import java.util.ArrayList;
 import groups.ReadStudents;
-import groups.Students;
+import groups.Student;
 
 public class Groups extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -39,7 +39,7 @@ public class Groups extends HttpServlet {
     }
 
     public ArrayList<Student> GetStudents(String group) {
-        ReadStudents students = new ReadStudents();
+        ReadStudents students = new ReadStudents(group);
         return students.getStudents();
     }
 }
