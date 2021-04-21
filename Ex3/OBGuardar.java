@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 public class OBGuardar {
     private String result;
+    private ArrayList<Animal> animals = new ArrayList<Animal>();
 
     OBGuardar(String animal) {
         try {
-            int total, totalGlobal;
+            int total, totalGlobal, id;
+            String nombre;
             double porcentaje;
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ex3", "root", "");
@@ -16,41 +18,47 @@ public class OBGuardar {
             ResultSet rset = stmt.executeQuery("SELECT * FROM animales");
 
             rset.absolute(1);
-            totalGlobal = rset.getInt("total");
-            rset.updateInt("total", totalGlobal + 1);
+            totalGlobal = rset.getInt("total") + 1;
+            rset.updateInt("total", totalGlobal);
             rset.updateRow();
 
-            result = animal;
-            switch (animal) {
-            case "perro":
+            if (animal.equals("perro")) {
                 rset.absolute(2);
-            case "gato":
+            } else if (animal.equals("gato")) {
                 rset.absolute(3);
-            case "pajaro":
+            } else if (animal.equals("pajaro")) {
                 rset.absolute(4);
-            case "serpiente":
+            } else if (animal.equals("serpiente")) {
                 rset.absolute(5);
-            case "ninguno":
+            } else if (animal.equals("ninguno")) {
                 rset.absolute(6);
             }
 
-            total = rset.getInt("total");
-            rset.updateInt("total", total + 1);
-            rset.updateDouble("porcentaje", ((total + 1) / totalGlobal) * 100);
+            total = rset.getInt("total") + 1;
+            rset.updateInt("total", total);
             rset.updateRow();
 
             rset = stmt.executeQuery("SELECT * FROM animales");
 
             while (rset.next()) {
-                id = rset.getString("id");
-                nombre = rset.getString("name");
+                id = rset.getInt("id");
+                nombre = rset.getString("nombre");
                 total = rset.getInt("total");
-                porcentaje = rset.getString();
-                // TODO
 
-                Student current = new Student(school_id, name, last_name, subject);
+                if (totalGlobal > 0) {
+                    double totalD = total;
+                    double totalGlobalD = totalGlobal;
+                    porcentaje = (totalD / totalGlobalD);
+                } else {
+                    porcentaje = 1;
+                }
+
+                rset.updateDouble("porcentaje", porcentaje);
+                rset.updateRow();
+
+                Animal current = new Animal(String.valueOf(id), nombre, total, porcentaje);
                 System.out.println(current);
-                students.add(current);
+                animals.add(current);
             }
 
             rset.close();
@@ -63,6 +71,10 @@ public class OBGuardar {
             result = e.getMessage();
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<Animal> getResults() {
+        return animals;
     }
 
     public String getResult() {

@@ -14,11 +14,12 @@ public class Groups extends HttpServlet {
         response.setContentType("text/html");
 
         ArrayList<Student> res = GetStudents(group);
+        //String res = getResult(group);
         PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE html>\n" + "<HTML lang='es'>\n" + "<HEAD>\n<meta charset='utf-8' />\n"
                 + "<title> Lectura de todos los parámetros de petición </title>\n</head>\n");
         out.println("<BODY>\n" + "<H1 ALIGN=CENTER>Lista de Alumnos del Grupo " + group + "</H1>\n");
-
+        //out.println("<p>" + res + "</p>");
         out.println("<table> ");
         out.println("<tr> ");
         out.println("<th>Carnet</th>");
@@ -41,5 +42,11 @@ public class Groups extends HttpServlet {
     public ArrayList<Student> GetStudents(String group) {
         ReadStudents students = new ReadStudents(group);
         return students.getStudents();
+    }
+
+    public String getResult(String group) {
+        ReadStudents students = new ReadStudents(group);
+        students.getStudents();
+        return students.getResult();
     }
 }

@@ -6,6 +6,7 @@ import groups.Student;
 
 public class ReadStudents {
     private ArrayList<Student> students = new ArrayList<Student>();
+    String result;
 
     ReadStudents(String group) {
         String school_id;
@@ -15,9 +16,9 @@ public class ReadStudents {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            Connection db = DriverManager.getConnection("jdbc:mysql://localhost:3306/agileplanning", "root", "");
+            Connection db = DriverManager.getConnection("jdbc:mysql://localhost:3306/groups", "root", "");
             Statement sql = db.createStatement();
-            ResultSet query = sql.executeQuery("SELECT * FROM students WHERE group = " + group);
+            ResultSet query = sql.executeQuery("SELECT * FROM students WHERE g = " + group);
 
             while (query.next()) {
 
@@ -35,13 +36,19 @@ public class ReadStudents {
             db.close();
             sql.close();
         } catch (ClassNotFoundException e) {
+            result = e.getMessage();
             e.printStackTrace();
         } catch (SQLException e) {
+            result = e.getMessage();
             e.printStackTrace();
         }
     }
 
     public ArrayList<Student> getStudents() {
         return students;
+    }
+
+    public String getResult() {
+        return result;
     }
 }
