@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class OBGuardar {
     private String result;
+    private ArratList<Animal> animals = new ArratList<Animal>();
 
     OBGuardar(String animal) {
         try {
@@ -45,12 +46,11 @@ public class OBGuardar {
                 id = rset.getString("id");
                 nombre = rset.getString("name");
                 total = rset.getInt("total");
-                porcentaje = rset.getString();
-                // TODO
+                porcentaje = rset.getDouble("porcentaje");
 
-                Student current = new Student(school_id, name, last_name, subject);
+                Animal current = new Animal(id, nombre, total, porcentaje);
                 System.out.println(current);
-                students.add(current);
+                animals.add(current);
             }
 
             rset.close();
@@ -65,7 +65,22 @@ public class OBGuardar {
         }
     }
 
-    public String getResult() {
-        return result;
+    public ArratList<Animal> getResult() {
+        return animals;
     }
+}
+
+public class Animal {
+    String id;
+    String nombre;
+    int total;
+    double porcentaje;
+
+    public Animal(String id, String nombre, int total, double porcentaje) {
+        this.id = id;
+        this.nombre = nombre;
+        this.total = total;
+        this.porcentaje = porcentaje;
+    }
+
 }
