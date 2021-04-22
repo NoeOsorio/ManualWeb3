@@ -10,8 +10,8 @@ import ventas.Categoria;
 public class ProductoDAO {
   String result;
 
-  public ArrayList < Producto > getProductos(int categoriaID) {
-
+  public String getProductos(int categoriaID) {
+    Gson gson = new Gson();
     ArrayList < Producto > productos = new ArrayList < Producto > ();
     int id, idCategoria, cantidad;
     String nombre, marca;
@@ -39,10 +39,11 @@ public class ProductoDAO {
       e.printStackTrace();
     }
 
-    return productos;
+    return gson.toJson(productos);
   }
 
-  public ArrayList < Categoria > getCategorias() {
+  public String getCategorias() {
+    Gson gson = new Gson();
     ArrayList < Categoria > categorias = new ArrayList < Categoria > ();
     int id;
     String nombre;
@@ -56,7 +57,7 @@ public class ProductoDAO {
       while (rs.next()) {
         id = rs.getInt("id");
         nombre = rs.getString("nombre");
-        productos.add(new Categoria(id, nombre));
+        categorias.add(new Categoria(id, nombre));
       }
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
@@ -64,7 +65,7 @@ public class ProductoDAO {
       e.printStackTrace();
     }
 
-    return categorias;
+    return gson.toJson(categorias);
   }
 
   public String getResult() {

@@ -1,8 +1,32 @@
+const cookie = document.cookie;
 let category;
 const productList = {};
 let subtotal = 0;
 let taxes = 0;
 let total = 0;
+
+function initInfo(cookie) {
+    const token = JSON.parse(cookie);
+    console.log(token);
+
+    document.getElementById("seller").innerHTML = token.uname;
+    getCategories();
+}
+
+function getCategories() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost:8080/Examen/Productos", true);
+    xhr.onload = function () {
+        const categories = JSON.parse(this.responseText);
+
+        for (index in categories) {
+            let i = parseInt(index) + 1;
+            document.getElementById("category-" + i)
+                .innerHTML = categories[parseInt(index)].nombre;
+        }
+    };
+    xhr.send();
+}
 
 function selectCategory() {
   category = document.getElementById("category").value;
@@ -101,3 +125,5 @@ function placeItems() {
     products.appendChild(item);
   });
 }
+
+initInfo(cookie);

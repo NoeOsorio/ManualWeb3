@@ -41,6 +41,15 @@
       <url-pattern>/Login</url-pattern>
    </servlet-mapping>
 
+   <servlet>
+      <servlet-name>Productos</servlet-name>
+      <servlet-class>ventas.Productos</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>Productos</servlet-name>
+      <url-pattern>/Productos</url-pattern>
+   </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.xhtml</welcome-file>
