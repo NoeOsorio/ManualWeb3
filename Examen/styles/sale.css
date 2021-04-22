@@ -1,0 +1,132 @@
+body {
+  margin: 0px;
+  background-color: #34495e;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 2em;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: right;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  cursor: default;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #7f8c8d;
+}
+
+main > * {
+  background-color: white;
+  margin: 1em;
+  border-radius: 10px;
+  /* border: 1px solid rgb(179, 179, 179); */
+  /* box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.248); */
+}
+
+select {
+  padding: 1em;
+  font-size: 1em;
+  margin: 1em auto;
+  border-radius: 10px;
+  display: block;
+  cursor: pointer;
+}
+
+#product {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 50%;
+  grid-gap: 1em;
+  margin: 2em auto;
+}
+
+.product-select {
+  padding: 0.5em 1em;
+  border: none;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.248);
+  background: none;
+  border-radius: 10px;
+  cursor: pointer;
+  /* TODO: Colors */
+}
+
+.product-select:hover,
+.product-select:focus {
+  outline: none;
+  background-color: #2980b9;
+  color: white;
+}
+
+section {
+  padding: 1em 2em;
+}
+
+#products-headers {
+  font-weight: 600;
+}
+
+#products-headers,
+.product-item {
+  display: grid;
+  grid-template-columns: 6rem 1fr 8rem 6rem;
+  line-height: 1rem;
+}
+
+.payment-info {
+  font-size: 1.3em;
+  text-align: end;
+  margin: 3rem;
+}
+
+.payment-buttons {
+  display: flex;
+  justify-content: space-between;
+  float: right;
+  margin-right: 3rem;
+  width: 11rem;
+}
+
+.payment-buttons > * {
+  font-size: 1em;
+  padding: 0.5em 1em;
+  border: none;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.248);
+  background: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#cancel:hover,
+#cancel:focus {
+  background-color: #e74c3c;
+  color: white;
+}
+#pay:hover,
+#pay:focus {
+  background-color: #27ae60;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
