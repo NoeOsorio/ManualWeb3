@@ -12,7 +12,6 @@ public class AuthDAO {
 
   public String LogIn(String uname, String passwd) {
     String token = null;
-
     try {
       Class.forName("com.mysql.jdbc.Driver");
       Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/examen", "root", "");

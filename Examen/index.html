@@ -5,7 +5,7 @@
     </head>
     <body>
         <h1>Inicio de Sesion</h1>
-        <form action="http://localhost:8080/examen/Login" method="POST">
+        <form>
             <label><b>Nombre de Usuario
             </b>
             </label>
@@ -16,8 +16,28 @@
             </label>
             <input type="Password" name="passwd" id="Pass">
             <br><br>
-            <input type="submit" name="log" id="log" value="Ingresar">
+            <input type="button" onclick="LogIn()" name="log" id="log" value="Ingresar">
             <br><br>
         </form>
+        <script>
+         function LogIn() {
+             const uname = document.getElementById("Uname").value;
+             const passwd = document.getElementById("Pass").value;
+
+             var xhr = new XMLHttpRequest();
+             xhr.open('POST', 'http://localhost:8080/examen/Login', true);
+             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+             xhr.onload = function () {
+                 const token = this.responseText;
+
+                 if (token === 'null') {
+                 } else {
+                     document.cookie = token;
+                     window.location.replace("http://localhost:8080/examen/home.html");
+                 }
+             };
+             xhr.send(`uname=${uname}&passwd=${passwd}`);
+         }
+        </script>
     </body>
 </html>
