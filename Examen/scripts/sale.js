@@ -6,7 +6,6 @@ let total = 0;
 
 function selectCategory() {
   category = document.getElementById("category").value;
-  console.log(category);
 
   for (let index = 0; index < 4; index++) {
     let productHtml = document.getElementById("product-select-" + index);
@@ -31,7 +30,6 @@ function addProduct(index) {
     };
   }
 
-  console.log(productList);
   placeItems();
   getSubtotal();
   getTaxes();
