@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/sale.css" />
+    <link rel="stylesheet" href="../styles/report.css" />
     <title>Punto de venta</title>
   </head>
   <body>
@@ -14,34 +14,49 @@
           <a>Turno: <span id="turn"></span></a>
         </li>
         <li>
-          <a>Vendedor <span id="seller"></span></a>
+          <a>Vendedor:<span id="seller"></span></a>
+        </li>
+        <li>
+          <a href="sale.html">Punto de Venta</a>
         </li>
       </ul>
     </header>
     <main>
       <section>
-        <h2>Venta</h2>
+        <h2>Corte de Caja</h2>
         <div>
-          <p id="products-headers">
-            <span>Cantidad</span>
-            <span>Producto</span>
-            <span>Precio unitario</span>
-            <span>Precio</span>
+          <p id="sales-headers">
+            <span>Vendedor</span>
+            <span>Total</span>
           </p>
         </div>
-        <div id="products"></div>
-        <div class="payment-info">
-          <p><strong>Subtotal: </strong><span id="subtotal"> $0 </span></p>
-          <p><strong>Impuestos: </strong><span id="taxes"> $0 </span></p>
-
-          <p><strong>Total: </strong> <span id="total"> $0 </span></p>
+        <div id="sales">
+          <p class="sale-item">
+            <span>1</span>
+            <span>$1</span>
+          </p>
+          <p class="sale-item">
+            <span>1</span>
+            <span>$1</span>
+          </p>
+          <p class="sale-item">
+            <span>1</span>
+            <span>$1</span>
+          </p>
+          <p class="sale-item">
+            <span>1</span>
+            <span>$1</span>
+          </p>
+          <p class="sale-item">
+            <span>1</span>
+            <span>$1</span>
+          </p>
         </div>
-        <div class="payment-buttons">
-          <button id="cancel">Cancelar</button>
-          <button id="pay">Pagar</button>
+        <div class="sales-info">
+          <p><strong>Total: </strong> <span id="total"> $0 </span></p>
         </div>
       </section>
     </main>
-    <script src="../scripts/sale.js"></script>
+    <script src="../scripts/report.js"></script>
   </body>
 </html>
