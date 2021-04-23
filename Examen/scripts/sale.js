@@ -14,6 +14,9 @@ function initInfo(cookie) {
     console.log(token);
     seller = token;
 
+    if (token.type === "admin") {
+      document.getElementById("corte").classList.remove("hidden");
+    }
     document.getElementById("seller").innerHTML = token.uname;
   } catch (error) {}
   getCategories();

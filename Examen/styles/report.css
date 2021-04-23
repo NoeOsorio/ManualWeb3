@@ -1,0 +1,75 @@
+body {
+  margin: 0px;
+  background-color: #34495e;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  padding: 2em;
+}
+main > * {
+  background-color: white;
+  margin: 1em;
+  border-radius: 10px;
+  /* border: 1px solid rgb(179, 179, 179); */
+  /* box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.248); */
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: right;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  cursor: default;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #7f8c8d;
+}
+
+section {
+  padding: 1em 2em;
+}
+
+#sales-headers {
+  font-weight: 600;
+}
+
+#sales-headers,
+.sale-item {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 6rem 6rem 6rem 6rem;
+  line-height: 1rem;
+}
+
+#sales-headers > *:nth-child(1),
+.sale-item > *:nth-child(1) {
+  grid-column-start: 2;
+}
+
+.sales-info {
+  font-size: 1.3em;
+  text-align: end;
+  margin: 3rem;
+}
+
+.hidden {
+  display: none;
+}
