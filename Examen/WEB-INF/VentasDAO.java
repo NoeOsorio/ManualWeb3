@@ -13,6 +13,7 @@ public class VentasDAO {
 
     public String registrarVenta(Venta venta) {
         Gson gson = new Gson();
+        int ventaID = 0;
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -21,22 +22,37 @@ public class VentasDAO {
             ResultSet rs = stmt.executeQuery("SELECT * FROM ventas");
 
             rs.moveToInsertRow();
-            rs.updateInt("cantidad", venta.cantidad);
-            rs.updateInt("categoriaID", venta.categoriaID);
-            rs.updateInt("vendedorID", venta.vendedorID);
+            rs.updateInt("vendedorID", Integer.parseInt(venta.seller.uid));
             rs.updateDouble("subtotal", venta.subtotal);
             rs.updateDouble("total", venta.total);
             rs.insertRow();
             rs.moveToCurrentRow();
+
+            while(rs.next()) {
+                ventaID = rs.getInt("id");
+            }
+
+            rs = stmt.executeQuery("SELECT * FROM `productos-vendidos`");
+
+            for(Producto producto : venta.products) {
+                rs.moveToInsertRow();
+                rs.updateInt("ventaID", ventaID);
+                rs.updateInt("productoID", producto.id);
+                rs.updateInt("cantidad", producto.quantity);
+                rs.insertRow();
+                rs.moveToCurrentRow();
+            }
 
             rs.close();
             stmt.close();
             conn.close();
         }
         catch (ClassNotFoundException e) {
+            result = e.getMessage();
             e.printStackTrace();
         }
         catch (SQLException e) {
+            result = e.getMessage();
             e.printStackTrace();
         }
         return gson.toJson(venta);

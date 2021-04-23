@@ -29,9 +29,9 @@ public class ProductoDAO {
         marca = rs.getString("marca");
         idCategoria = rs.getInt("categoriaID");
         cantidad = rs.getInt("cantidad");
-        precio = rs.getInt("precio");
+        precio = rs.getDouble("precio");
 
-        productos.add(new Producto(id, nombre, marca, idCategoria, cantidad, precio));
+        productos.add(new Producto(id, nombre, marca, idCategoria, cantidad, precio, 0));
       }
     } catch (ClassNotFoundException e) {
       e.printStackTrace();

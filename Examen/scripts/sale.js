@@ -35,25 +35,8 @@ function getCategories() {
   };
 
   xhr.send();
-
-  // TODO:Borra desde aqui
-  // const categories = [
-  //   { id: 1, nombre: "Botanas" },
-  //   { id: 2, nombre: "Bebidas" },
-  //   { id: 3, nombre: "Frutas" },
-  //   { id: 4, nombre: "Lacteos" },
-  // ];
-
-  // for (index in categories) {
-  //   let i = parseInt(index) + 1;
-  //   document.getElementById("category-" + i).innerHTML =
-  //     categories[parseInt(index)].nombre;
-  // }
-  // category = 1;
-  // getProducts();
-
-  // Hasta aqui
 }
+
 function getProducts() {
   var xhr = new XMLHttpRequest();
   xhr.open(
@@ -71,49 +54,6 @@ function getProducts() {
     });
   };
   xhr.send();
-
-  // TODO:Quitar en producción
-  // products = [
-  //   {
-  //     id: 1,
-  //     nombre: "Refresco de Cola",
-  //     marca: "Coca-Cola",
-  //     categoriaID: category,
-  //     cantidad: 2,
-  //     precio: 20,
-  //   },
-  //   {
-  //     id: 2,
-  //     nombre: "Refresco de Limón",
-  //     marca: "Coca-Cola",
-  //     categoriaID: category,
-  //     cantidad: 2,
-  //     precio: 20,
-  //   },
-  //   {
-  //     id: 3,
-  //     nombre: "Refresco de Naranja",
-  //     marca: "Coca-Cola",
-  //     categoriaID: category,
-  //     cantidad: 2,
-  //     precio: 20,
-  //   },
-  //   {
-  //     id: 4,
-  //     nombre: "Refresco de Sandía",
-  //     marca: "Coca-Cola",
-  //     categoriaID: category,
-  //     cantidad: 2,
-  //     precio: 20,
-  //   },
-  // ];
-  // products.forEach((product, index) => {
-  //   let productHtml = document.getElementById("product-select-" + index);
-  //   productHtml.classList.remove("hidden");
-  //   productHtml.innerHTML = product.nombre;
-  // });
-
-  // Hasta aqui
 }
 
 function selectCategory() {
@@ -128,9 +68,7 @@ function selectCategory() {
 }
 
 function addProduct(index) {
-  const selectedProduct = products.filter(
-    (element) => element.id == index + 1
-  )[0];
+  const selectedProduct = products[parseInt(index)];
 
   const { nombre } = selectedProduct;
 
@@ -230,7 +168,7 @@ function pay() {
   var url = "http://localhost:8080/Examen/Ventas";
   xmlhttp.open("POST", url);
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  xmlhttp.send(data);
+    xmlhttp.send(JSON.stringify(data));
 }
 
 function cancel() {
