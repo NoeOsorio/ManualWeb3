@@ -1,13 +1,14 @@
 package ventas;
 
 import ventas.Producto;
+import ventas.Vendedor;
 
 public class Venta {
     Producto[] products;
     Vendedor seller;
     double subtotal, total;
 
-    public Venta(Producto[] products, Vendedor seller, int subtotal, int total) {
+    public Venta(Producto[] products, Vendedor seller, double subtotal, double total) {
         this.products = products;
         this.seller = seller;
         this.subtotal = subtotal;

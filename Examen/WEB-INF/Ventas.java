@@ -11,7 +11,9 @@ import ventas.Venta;
 
 public class Ventas extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String json = "";
+        String json;
+
+        json = getCorteDeCaja();
 
         PrintWriter out = response.getWriter();
 
@@ -57,8 +59,8 @@ public class Ventas extends HttpServlet {
         return dao.getResult();
     }
 
-    public String getCategories() {
-        ProductoDAO dao = new ProductoDAO();
-        return dao.getCategorias();
+    public String getCorteDeCaja() {
+        VentasDAO dao = new VentasDAO();
+        return dao.corteDeCaja();
     }
 }
