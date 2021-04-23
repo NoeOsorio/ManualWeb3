@@ -27,9 +27,10 @@ public class Ventas extends HttpServlet {
         subtotal = request.getParameter("subtotal");
         total = request.getParameter("total");
 
-        Venta venta = new Venta(Integer.parseInt(cantidad), Integer.parseInt(categoriaID), Integer.parseInt(vendedorID), Doubl.parseDouble(subtotal), Double.parseDouble(total));
+        Venta venta = new Venta(Integer.parseInt(cantidad), Integer.parseInt(categoriaID), Integer.parseInt(vendedorID),
+                Doubl.parseDouble(subtotal), Double.parseDouble(total));
 
-        json = registerSale(venta)
+        json = registerSale(venta);
 
         PrintWriter out = response.getWriter();
 
@@ -50,4 +51,3 @@ public class Ventas extends HttpServlet {
         return dao.getCategorias();
     }
 }
-

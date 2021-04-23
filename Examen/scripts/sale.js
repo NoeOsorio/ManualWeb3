@@ -1,54 +1,136 @@
 const cookie = document.cookie;
 let category;
-const productList = {};
+let products;
+let seller = {};
+
+let productList = {};
 let subtotal = 0;
 let taxes = 0;
 let total = 0;
 
 function initInfo(cookie) {
+  try {
     const token = JSON.parse(cookie);
     console.log(token);
+    seller = token;
 
     document.getElementById("seller").innerHTML = token.uname;
-    getCategories();
+  } catch (error) {}
+  getCategories();
 }
 
 function getCategories() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:8080/Examen/Productos", true);
-    xhr.onload = function () {
-        const categories = JSON.parse(this.responseText);
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "http://localhost:8080/Examen/Productos", true);
+  xhr.onload = function () {
+    const categories = JSON.parse(this.responseText);
 
-        for (index in categories) {
-            let i = parseInt(index) + 1;
-            document.getElementById("category-" + i)
-                .innerHTML = categories[parseInt(index)].nombre;
-        }
-    };
-    xhr.send();
+    for (index in categories) {
+      let i = parseInt(index) + 1;
+      document.getElementById("category-" + i).innerHTML =
+        categories[parseInt(index)].nombre;
+    }
+  };
+
+  xhr.send();
+
+  const categories = [
+    { id: 1, nombre: "Botanas" },
+    { id: 2, nombre: "Bebidas" },
+    { id: 3, nombre: "Frutas" },
+    { id: 4, nombre: "Lacteos" },
+  ];
+
+  for (index in categories) {
+    let i = parseInt(index) + 1;
+    document.getElementById("category-" + i).innerHTML =
+      categories[parseInt(index)].nombre;
+  }
+  category = 1;
+  getProducts();
+}
+function getProducts() {
+  var xhr = new XMLHttpRequest();
+  xhr.open(
+    "GET",
+    `http://localhost:8080/Examen/Productos?category=${category}`,
+    true
+  );
+  xhr.onload = function () {
+    products = JSON.parse(this.responseText);
+
+    products.forEach((product, index) => {
+      let productHtml = document.getElementById("product-select-" + index);
+      productHtml.classList.remove("hidden");
+      productHtml.innerHTML = product.nombre;
+    });
+  };
+  xhr.send();
+
+  // TODO:Quitar en producción
+  products = [
+    {
+      id: 1,
+      nombre: "Refresco de Cola",
+      marca: "Coca-Cola",
+      categoriaID: category,
+      cantidad: 2,
+      precio: 20,
+    },
+    {
+      id: 2,
+      nombre: "Refresco de Limón",
+      marca: "Coca-Cola",
+      categoriaID: category,
+      cantidad: 2,
+      precio: 20,
+    },
+    {
+      id: 3,
+      nombre: "Refresco de Naranja",
+      marca: "Coca-Cola",
+      categoriaID: category,
+      cantidad: 2,
+      precio: 20,
+    },
+    {
+      id: 4,
+      nombre: "Refresco de Sandía",
+      marca: "Coca-Cola",
+      categoriaID: category,
+      cantidad: 2,
+      precio: 20,
+    },
+  ];
+  products.forEach((product, index) => {
+    let productHtml = document.getElementById("product-select-" + index);
+    productHtml.classList.remove("hidden");
+    productHtml.innerHTML = product.nombre;
+  });
 }
 
 function selectCategory() {
   category = document.getElementById("category").value;
 
-  for (let index = 0; index < 4; index++) {
-    let productHtml = document.getElementById("product-select-" + index);
-    productHtml.classList.remove("hidden");
-    productHtml.innerHTML = `Producto ${index + 1} - ${category}`;
-  }
+  getProducts();
+  // for (let index = 0; index < 4; index++) {
+  //   let productHtml = document.getElementById("product-select-" + index);
+  //   productHtml.classList.remove("hidden");
+  //   productHtml.innerHTML = `Producto ${index + 1} - ${category}`;
+  // }
 }
 
 function addProduct(index) {
-  const selectedProduct = {
-    name: document.getElementById("product-select-" + index).innerHTML,
-    unit: 45,
-  };
-  const { name, unit } = selectedProduct;
+  const selectedProduct = products.filter(
+    (element) => element.id == index + 1
+  )[0];
 
-  if (productList[name]) {
-    productList[name]["quantity"] = productList[name]["quantity"] + 1;
+  const { nombre } = selectedProduct;
+
+  if (productList[nombre]) {
+    productList[nombre]["quantity"] = productList[nombre]["quantity"] + 1;
   } else {
-    productList[name] = {
+    productList[nombre] = {
       ...selectedProduct,
       quantity: 1,
     };
@@ -68,9 +150,9 @@ function removeAllChildNodes(parent) {
 
 function getSubtotal() {
   Object.keys(productList).forEach((key) => {
-    const { unit, quantity } = productList[key];
-    const price = unit * quantity;
-    subtotal += Number(price);
+    const { precio, quantity: cantidad } = productList[key];
+    const precioTotal = precio * cantidad;
+    subtotal += Number(precioTotal);
   });
 
   const subtotalHtml = document.getElementById("subtotal");
@@ -96,8 +178,8 @@ function placeItems() {
   removeAllChildNodes(products);
 
   Object.keys(productList).forEach((key) => {
-    const { name, unit, quantity } = productList[key];
-    const price = unit * quantity;
+    const { nombre, precio, quantity } = productList[key];
+    const price = precio * quantity;
 
     const item = document.createElement("p");
     item.classList.add("product-item");
@@ -109,12 +191,12 @@ function placeItems() {
 
     const nameHtml = document.createElement("span");
     nameHtml.classList.add("product-name");
-    nameHtml.innerHTML = `${name}`;
+    nameHtml.innerHTML = `${nombre}`;
     item.appendChild(nameHtml);
 
     const unitHtml = document.createElement("span");
     unitHtml.classList.add("product-price-unit");
-    unitHtml.innerHTML = `$${unit}`;
+    unitHtml.innerHTML = `$${precio}`;
     item.appendChild(unitHtml);
 
     const priceHtml = document.createElement("span");
@@ -124,6 +206,38 @@ function placeItems() {
 
     products.appendChild(item);
   });
+}
+
+function pay() {
+  const productListArray = Object.keys(productList).map(
+    (key) => productList[key]
+  );
+  const data = {
+    products: productListArray,
+    subtotal,
+    total,
+    seller,
+  };
+
+  var xmlhttp = new XMLHttpRequest();
+  var url = "http://localhost:8080/Examen/Ventas";
+  xmlhttp.open("POST", url);
+  xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xmlhttp.send(data);
+}
+
+function cancel() {
+  productList = {};
+  taxes = 0;
+  total = 0;
+  subtotal = 0;
+
+  const products = document.getElementById("products");
+  removeAllChildNodes(products);
+
+  getSubtotal();
+  getTaxes();
+  getTotal();
 }
 
 initInfo(cookie);
