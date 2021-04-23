@@ -97,6 +97,7 @@ function removeAllChildNodes(parent) {
 }
 
 function getSubtotal() {
+  subtotal = 0;
   Object.keys(productList).forEach((key) => {
     const { precio, quantity: cantidad } = productList[key];
     const precioTotal = precio * cantidad;
@@ -107,13 +108,15 @@ function getSubtotal() {
   subtotalHtml.innerHTML = `$${subtotal}`;
 }
 function getTaxes() {
+  taxes = 0;
   taxes = subtotal * 0.16;
-  taxes = taxes;
+  taxes = Number(taxes.toFixed(3));
 
   const taxesHtml = document.getElementById("taxes");
   taxesHtml.innerHTML = `$${taxes}`;
 }
 function getTotal() {
+  total = 0;
   total = Number(subtotal) + Number(taxes);
 
   const totalHtml = document.getElementById("total");
@@ -171,7 +174,7 @@ function pay() {
   var url = "http://localhost:8080/Examen/Ventas";
   xmlhttp.open("POST", url);
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xmlhttp.send(JSON.stringify(data));
+  xmlhttp.send(JSON.stringify(data));
 }
 
 function cancel() {
