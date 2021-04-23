@@ -175,6 +175,7 @@ function pay() {
   xmlhttp.open("POST", url);
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xmlhttp.send(JSON.stringify(data));
+  cancel();
 }
 
 function cancel() {
